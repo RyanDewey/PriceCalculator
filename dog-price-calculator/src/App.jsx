@@ -34,20 +34,22 @@ function App() {
     console.log(`Date One: ${dateOne}, Date Two: ${dateTwo}`);
     console.log(`Total duration: ${days} days and ${hours} hours`);
 
-    setPrice(days * 60);
+    const calculatedPrice = (hours > 5 ? 60 : 50) + (days * 70);
+
+    setPrice(calculatedPrice);
 
   }
   
 
   return (
     <>
-      <div className="text-[50px] text-center">Lisa's Doggy Daycare Price Calculator</div>
+      <div className="text-[50px] text-center">Doggy Daycare Price Calculator</div>
       <form onSubmit={handleSubmit} className="text-center space-x-16 m-10">
-        <div className='text-[30px] m-5'>Enter the dates of the stay:</div>
+        <div className='text-[30px] m-5'>Enter the dates and times of the stay:</div>
         <div className='text-center space-x-16 m-10'>
           <input
             type="datetime-local"
-            className="rounded-md border border-gray-300 p-2"
+            className="rounded-md border border-gray-300 p-2 m-5"
             value={dateOne}
             min={dateTimeLocalNow}
             onChange={(e) => setDateOne(e.target.value)}
@@ -64,7 +66,7 @@ function App() {
         <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded m-5'>Submit</button>
       </form>
 
-      <div className='text-center text-[20px]'>Total Price: {price}</div>
+      <div className='text-center text-3xl'>Total Price: {price}</div>
       
     </>
   )
