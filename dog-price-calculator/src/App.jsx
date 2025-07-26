@@ -12,6 +12,7 @@ function App() {
   const [dateOne, setDateOne] = useState(dateTimeLocalNow);
   const [dateTwo, setDateTwo] = useState(dateTimeLocalNow);
   const [price, setPrice] = useState(0);
+  const [errorMsg, setErrorMsg] = useState('');
 
 
   const handleSubmit = (event) => {
@@ -24,6 +25,8 @@ function App() {
 
     if (diffMs < 0) {
       console.log("End date is before start date.");
+      setErrorMsg("The second date must come after the first, please try again.");
+      setPrice(0);
       return;
     }
 
@@ -37,7 +40,7 @@ function App() {
     const calculatedPrice = (hours > 5 ? 60 : 50) + (days * 70);
 
     setPrice(calculatedPrice);
-
+    setErrorMsg("");
   }
   
 
@@ -51,22 +54,20 @@ function App() {
             type="datetime-local"
             className="rounded-md border border-gray-300 p-2 m-5"
             value={dateOne}
-            min={dateTimeLocalNow}
             onChange={(e) => setDateOne(e.target.value)}
           />
           <input
             type="datetime-local"
             className="rounded-md border border-gray-300 p-2"
             value={dateTwo}
-            min={dateTimeLocalNow}
             onChange={(e) => setDateTwo(e.target.value)}
           />
         </div>
           
         <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded m-5'>Submit</button>
       </form>
-
-      <div className='text-center text-3xl'>Total Price: {price}</div>
+      <div className='text-center text-2xl text-red-500'>{errorMsg}</div>
+      <div className='text-center text-3xl'>{price != 0 ? <p>Total Price: {price}</p> : <p></p>}</div>
       
     </>
   )
